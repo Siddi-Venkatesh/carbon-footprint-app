@@ -18,19 +18,16 @@ ENV VITE_GEMINI_API_KEY=$VITE_GEMINI_API_KEY
 # Build the project (outputs to /app/dist)
 RUN npm run build
 
-# Step 2: Serve the app with Nginx
-FROM nginx:alpine
+# Step 2: Serve the app with Node Express (to support runtime env variables)
+FROM node:20-alpine
+WORKDIR /app
 
-# Remove default nginx config
-RUN rm /etc/nginx/conf.d/default.conf
-
-# Copy our custom nginx config for React Router and Port 8080
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Copy the built React app from the builder stage
-COPY --from=builder /app/dist /usr/share/nginx/html
+# Copy the built app and server script
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
+COPY server.js ./
 
 # Cloud Run requires the container to listen on the port defined by $PORT (default is 8080)
 EXPOSE 8080
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["node", "server.js"]

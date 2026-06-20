@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-// Initialize the API. Vite exposes env vars prefixed with VITE_ via import.meta.env
-const apiKey = import.meta.env.VITE_GEMINI_API_KEY || '';
+// Initialize the API. Check Vite build env first, then check runtime injected env.
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY || (window as any).ENV?.GEMINI_API_KEY || '';
 
 // System instruction context so the model knows its role.
 const SYSTEM_INSTRUCTION = `You are EcoAssist, a highly knowledgeable, friendly, and concise carbon footprint assistant. 
