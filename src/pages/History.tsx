@@ -7,9 +7,10 @@ import { FootprintData, calculateEmissions, getCarbonScore } from '../utils/carb
 type HistoryProps = {
   history: FootprintData[];
   onSelect: (id: string) => void;
+  onDelete?: (id: string) => void;
 };
 
-export const History: React.FC<HistoryProps> = ({ history, onSelect }) => {
+export const History: React.FC<HistoryProps> = ({ history, onSelect, onDelete }) => {
   const navigate = useNavigate();
 
   if (history.length === 0) {
@@ -68,20 +69,46 @@ export const History: React.FC<HistoryProps> = ({ history, onSelect }) => {
                 </div>
               )}
               
-              <div style={{ borderBottom: '1px solid var(--bg-tertiary)', paddingBottom: '1rem' }}>
-                <h3 style={{ fontSize: '1.2rem', marginBottom: '0.2rem', color: 'var(--text-primary)' }}>
-                  {new Date(item.date || '').toLocaleDateString(undefined, {
-                    month: 'short',
-                    day: 'numeric',
-                    year: 'numeric'
-                  })}
-                </h3>
-                <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
-                  {new Date(item.date || '').toLocaleTimeString(undefined, {
-                    hour: '2-digit',
-                    minute: '2-digit'
-                  })}
-                </p>
+              <div style={{ borderBottom: '1px solid var(--bg-tertiary)', paddingBottom: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div>
+                  <h3 style={{ fontSize: '1.2rem', marginBottom: '0.2rem', color: 'var(--text-primary)' }}>
+                    {new Date(item.date || '').toLocaleDateString(undefined, {
+                      month: 'short',
+                      day: 'numeric',
+                      year: 'numeric'
+                    })}
+                  </h3>
+                  <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                    {new Date(item.date || '').toLocaleTimeString(undefined, {
+                      hour: '2-digit',
+                      minute: '2-digit'
+                    })}
+                  </p>
+                </div>
+                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                  <button 
+                    onClick={() => navigate('/calculator', { state: { editData: item } })}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.2rem', opacity: 0.7 }}
+                    title="Edit"
+                    aria-label="Edit Calculation"
+                  >
+                    ✏️
+                  </button>
+                  {onDelete && (
+                    <button 
+                      onClick={() => {
+                        if (window.confirm("Are you sure you want to delete this footprint record?")) {
+                          onDelete(item.id!);
+                        }
+                      }}
+                      style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.2rem', opacity: 0.7 }}
+                      title="Delete"
+                      aria-label="Delete Calculation"
+                    >
+                      🗑️
+                    </button>
+                  )}
+                </div>
               </div>
 
               <div style={{ margin: '1rem 0' }}>

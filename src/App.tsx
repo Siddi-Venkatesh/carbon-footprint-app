@@ -26,14 +26,29 @@ function App() {
   }, []);
 
   const handleDataComplete = (data: FootprintData) => {
-    const newEntry = {
-      ...data,
-      id: Math.random().toString(36).substr(2, 9),
-      date: new Date().toISOString()
-    };
-    const updatedHistory = [...history, newEntry];
+    let updatedHistory;
+    
+    // If the data already has an ID, we are editing an existing item
+    if (data.id) {
+      updatedHistory = history.map(item => item.id === data.id ? { ...data, date: new Date().toISOString() } : item);
+    } else {
+      const newEntry = {
+        ...data,
+        id: Math.random().toString(36).substr(2, 9),
+        date: new Date().toISOString()
+      };
+      updatedHistory = [...history, newEntry];
+    }
+    
     setHistory(updatedHistory);
-    setActiveId(newEntry.id);
+    setActiveId(data.id || updatedHistory[updatedHistory.length - 1].id!);
+    localStorage.setItem('ecoAssist_history', JSON.stringify(updatedHistory));
+  };
+
+  const handleDeleteHistory = (id: string) => {
+    const updatedHistory = history.filter(item => item.id !== id);
+    setHistory(updatedHistory);
+    if (activeId === id) setActiveId(null);
     localStorage.setItem('ecoAssist_history', JSON.stringify(updatedHistory));
   };
 
@@ -51,7 +66,7 @@ function App() {
           <Route path="/recommendations" element={<Recommendations data={activeData} />} />
           <Route path="/challenges" element={<Challenges />} />
           <Route path="/education" element={<Education />} />
-          <Route path="/history" element={<History history={history} onSelect={setActiveId} />} />
+          <Route path="/history" element={<History history={history} onSelect={setActiveId} onDelete={handleDeleteHistory} />} />
           {/* Catch all */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

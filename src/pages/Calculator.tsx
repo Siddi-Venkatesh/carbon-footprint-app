@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Card } from '../components/Card';
 import { Input } from '../components/Input';
 import { Select } from '../components/Select';
@@ -12,8 +12,10 @@ type CalculatorProps = {
 
 export const Calculator: React.FC<CalculatorProps> = ({ onComplete }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const editData = location.state?.editData as FootprintData | undefined;
   
-  const [data, setData] = useState<FootprintData>({
+  const [data, setData] = useState<FootprintData>(editData || {
     carKmPerWeek: 0,
     bikeKmPerWeek: 0,
     transitKmPerWeek: 0,
