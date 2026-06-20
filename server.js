@@ -12,8 +12,8 @@ const port = process.env.PORT || 8080;
 // Serve static assets EXCEPT index.html
 app.use(express.static(path.join(__dirname, 'dist'), { index: false }));
 
-// Serve the dynamically injected index.html for all routes (React Router)
-app.get('*', (req, res) => {
+// Serve the dynamically injected index.html for all routes (React Router fallback)
+app.use((req, res) => {
   const indexPath = path.join(__dirname, 'dist', 'index.html');
   
   fs.readFile(indexPath, 'utf8', (err, htmlData) => {
