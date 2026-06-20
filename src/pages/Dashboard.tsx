@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 import { Card } from '../components/Card';
 import { Button } from '../components/Button';
 import { FootprintData, calculateEmissions, getCarbonScore } from '../utils/carbonCalculator';
@@ -9,7 +9,6 @@ type DashboardProps = {
   data: FootprintData | null;
 };
 
-const COLORS = ['#00e59b', '#ffa502', '#ff4757', '#3498db'];
 
 export const Dashboard: React.FC<DashboardProps> = ({ data }) => {
   const navigate = useNavigate();
@@ -102,7 +101,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ data }) => {
                   stroke="var(--bg-secondary)"
                   strokeWidth={4}
                 >
-                  {chartData.map((entry, index) => (
+                  {chartData.map((_, index) => (
                     <Cell 
                       key={`cell-${index}`} 
                       fill={index === 0 ? '#00e676' : index === 1 ? '#00c853' : index === 2 ? '#69f0ae' : '#88f0ae'} 

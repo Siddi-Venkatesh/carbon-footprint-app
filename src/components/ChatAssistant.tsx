@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Card } from './Card';
 import { Button } from './Button';
-import { Input } from './Input';
 import { askEcoAssistant } from '../utils/gemini';
 
 type Message = {
@@ -92,7 +91,7 @@ export const ChatAssistant: React.FC = () => {
               {['Reduce food emissions?', 'Why recycle?', 'What is carbon offset?'].map((suggestion, idx) => (
                 <button
                   key={idx}
-                  onClick={(e) => {
+                  onClick={() => {
                     setInput(suggestion);
                   }}
                   style={{
