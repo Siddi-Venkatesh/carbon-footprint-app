@@ -60,7 +60,7 @@ export const ChatAssistant: React.FC = () => {
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--bg-tertiary)', paddingBottom: '0.5rem', marginBottom: '1rem' }}>
             <h3 style={{ fontSize: '1.2rem', color: 'var(--accent-primary)' }}>Eco Assistant 🌿</h3>
-            <button onClick={() => setIsOpen(false)} style={{ color: 'var(--text-secondary)', fontSize: '1.5rem' }}>&times;</button>
+            <button onClick={() => setIsOpen(false)} aria-label="Close chat" style={{ color: 'var(--text-secondary)', fontSize: '1.5rem', background: 'transparent', border: 'none', cursor: 'pointer' }}>&times;</button>
           </div>
           
           <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1rem', paddingRight: '0.5rem' }}>
@@ -118,6 +118,7 @@ export const ChatAssistant: React.FC = () => {
               value={input} 
               onChange={(e) => setInput(e.target.value)} 
               placeholder="Ask a question..."
+              aria-label="Chat input"
               style={{
                 flex: 1,
                 padding: '0.8rem',
@@ -128,7 +129,7 @@ export const ChatAssistant: React.FC = () => {
                 fontFamily: 'inherit'
               }}
             />
-            <Button type="submit" disabled={isLoading} style={{ borderRadius: '50%', width: '45px', height: '45px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Button type="submit" disabled={isLoading} aria-label="Send message" style={{ borderRadius: '50%', width: '45px', height: '45px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               ↑
             </Button>
           </form>
@@ -139,6 +140,7 @@ export const ChatAssistant: React.FC = () => {
         <Button 
           onClick={() => setIsOpen(true)}
           className="animate-robot-glow"
+          aria-label="Open Eco Assistant Chat"
           style={{ 
             borderRadius: '50%', 
             width: '70px', 
