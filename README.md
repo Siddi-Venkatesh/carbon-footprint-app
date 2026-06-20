@@ -1,6 +1,6 @@
 # Carbon Footprint Awareness Platform
 
-## Overview
+## How the Solution Works
 EcoAssist is a "Smart, Dynamic Assistant" web application designed to help individuals understand, track, and reduce their carbon footprint through simple actions and personalized insights. The platform evaluates users' lifestyles across transport, diet, and energy usage, presenting an intuitive dashboard with actionable steps.
 
 ## Chosen Vertical
