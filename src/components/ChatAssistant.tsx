@@ -50,8 +50,8 @@ export const ChatAssistant: React.FC = () => {
       
       {isOpen && (
         <Card style={{ 
-          width: '420px', 
-          height: '450px', 
+          width: '500px', 
+          height: '400px', 
           marginBottom: '1rem', 
           display: 'flex', 
           flexDirection: 'column',
