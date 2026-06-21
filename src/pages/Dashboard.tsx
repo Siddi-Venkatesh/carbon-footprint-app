@@ -58,7 +58,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ data }) => {
         <Card style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--bg-tertiary)' }}>
           <h4 style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Total Emissions</h4>
           <p style={{ fontSize: '2.5rem', fontWeight: 'bold', color: 'var(--text-primary)' }}>
-            {emissions.total.toLocaleString()} <span style={{ fontSize: '1rem', color: 'var(--text-secondary)' }}>kgCO₂e</span>
+            {emissions!.total.toLocaleString()} <span style={{ fontSize: '1rem', color: 'var(--text-secondary)' }}>kgCO₂e</span>
           </p>
         </Card>
         <Card style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--bg-tertiary)' }}>
@@ -84,7 +84,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ data }) => {
             {/* Center Text */}
             <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', pointerEvents: 'none' }}>
               <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Total:</p>
-              <p style={{ color: 'var(--text-primary)', fontSize: '1.8rem', fontWeight: 'bold' }}>{emissions.total.toLocaleString()}</p>
+              <p style={{ color: 'var(--text-primary)', fontSize: '1.8rem', fontWeight: 'bold' }}>{emissions!.total.toLocaleString()}</p>
               <p style={{ color: 'var(--text-secondary)', fontSize: '0.8rem' }}>kgCO₂e</p>
             </div>
             
@@ -121,7 +121,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ data }) => {
                   backgroundColor: idx === 0 ? '#00e676' : idx === 1 ? '#00c853' : idx === 2 ? '#69f0ae' : '#88f0ae'
                 }} />
                 <span style={{ color: 'var(--text-secondary)' }}>{item.name}</span>
-                <span style={{ fontWeight: 'bold', color: 'var(--text-primary)' }}>{Math.round((item.value / emissions.total) * 100)}%</span>
+                <span style={{ fontWeight: 'bold', color: 'var(--text-primary)' }}>{Math.round((item.value / emissions!.total) * 100)}%</span>
               </div>
             ))}
           </div>
@@ -133,7 +133,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ data }) => {
           
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             {chartData.sort((a,b) => b.value - a.value).map((item, idx) => {
-              const percentage = Math.max((item.value / emissions.total) * 100, 5); // Ensure at least 5% width for visibility
+              const percentage = Math.max((item.value / emissions!.total) * 100, 5); // Ensure at least 5% width for visibility
               
               return (
                 <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
