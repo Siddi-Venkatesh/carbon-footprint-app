@@ -108,7 +108,7 @@ export const Calculator: React.FC<CalculatorProps> = ({ onComplete }) => {
               label="Dietary Preference"
               required
               value={data.diet}
-              onChange={(e) => setData({ ...data, diet: e.target.value as any })}
+              onChange={(e) => setData({ ...data, diet: e.target.value as FootprintData['diet'] })}
               options={[
                 { value: 'vegan', label: 'Vegan' },
                 { value: 'vegetarian', label: 'Vegetarian' },
@@ -124,7 +124,7 @@ export const Calculator: React.FC<CalculatorProps> = ({ onComplete }) => {
               label="Waste generation level"
               required
               value={data.wasteLevel}
-              onChange={(e) => setData({ ...data, wasteLevel: e.target.value as any })}
+              onChange={(e) => setData({ ...data, wasteLevel: e.target.value as FootprintData['wasteLevel'] })}
               options={[
                 { value: 'low', label: 'Low' },
                 { value: 'medium', label: 'Medium' },
@@ -135,7 +135,7 @@ export const Calculator: React.FC<CalculatorProps> = ({ onComplete }) => {
               label="Recycling habit"
               required
               value={data.recyclingHabit}
-              onChange={(e) => setData({ ...data, recyclingHabit: e.target.value as any })}
+              onChange={(e) => setData({ ...data, recyclingHabit: e.target.value as FootprintData['recyclingHabit'] })}
               options={[
                 { value: 'never', label: 'Never' },
                 { value: 'sometimes', label: 'Sometimes' },

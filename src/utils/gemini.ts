@@ -1,7 +1,13 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenerativeAI, GenerativeModel } from '@google/generative-ai';
 
-// Initialize the API. Check Vite build env first, then check runtime injected env.
-const apiKey = import.meta.env.VITE_GEMINI_API_KEY || (window as any).ENV?.GEMINI_API_KEY || '';
+interface WindowWithEnv extends Window {
+  ENV?: { GEMINI_API_KEY?: string };
+}
+
+/**
+ * Initializes the Google Gemini API. Checks Vite build env first, then runtime injected env.
+ */
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY || ((window as unknown) as WindowWithEnv).ENV?.GEMINI_API_KEY || '';
 
 // System instruction context so the model knows its role.
 const SYSTEM_INSTRUCTION = `You are EcoAssist, a highly knowledgeable, friendly, and concise carbon footprint assistant. 
@@ -9,7 +15,7 @@ Your goal is to help users understand their carbon footprint, climate change, an
 Keep your answers brief, actionable, and formatted nicely. Do not use complex markdown that is hard to render, stick to simple text, bullet points, and short paragraphs.`;
 
 let genAI: GoogleGenerativeAI | null = null;
-let model: any = null;
+let model: GenerativeModel | null = null;
 
 if (apiKey) {
   genAI = new GoogleGenerativeAI(apiKey);
@@ -20,6 +26,12 @@ if (apiKey) {
   });
 }
 
+/**
+ * Sends a prompt to the Google Gemini model and returns the text response.
+ * @param {string} prompt - The user's input question.
+ * @param {Array} history - Previous chat history for context.
+ * @returns {Promise<string>} The AI's response text.
+ */
 export const askEcoAssistant = async (prompt: string, history: {role: string, parts: {text: string}[]}[] = []): Promise<string> => {
   if (!model) {
     return "Error: Gemini API key is missing. Please check your .env.local file.";

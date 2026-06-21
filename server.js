@@ -1,4 +1,5 @@
 import express from 'express';
+import helmet from 'helmet';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -8,6 +9,14 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = process.env.PORT || 8080;
+
+// Security: Add strict HTTP headers using Helmet
+app.use(
+  helmet({
+    contentSecurityPolicy: false, // We will set this manually in index.html for Vite compatibility
+    crossOriginEmbedderPolicy: false,
+  })
+);
 
 // Serve static assets EXCEPT index.html
 app.use(express.static(path.join(__dirname, 'dist'), { index: false }));

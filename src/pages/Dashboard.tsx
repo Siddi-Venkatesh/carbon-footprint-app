@@ -13,6 +13,9 @@ type DashboardProps = {
 export const Dashboard: React.FC<DashboardProps> = ({ data }) => {
   const navigate = useNavigate();
 
+  const emissions = useMemo(() => data ? calculateEmissions(data) : null, [data]);
+  const scoreLabel = useMemo(() => emissions ? getCarbonScore(emissions.total) : 'Unknown', [emissions]);
+
   if (!data || data.diet === '') {
     return (
       <div style={{ textAlign: 'center', marginTop: '4rem' }}>
@@ -23,14 +26,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ data }) => {
     );
   }
 
-  const emissions = useMemo(() => calculateEmissions(data), [data]);
-  const scoreLabel = useMemo(() => getCarbonScore(emissions.total), [emissions]);
-
   const chartData = [
-    { name: 'Transport', value: emissions.transport },
-    { name: 'Energy', value: emissions.energy },
-    { name: 'Food', value: emissions.food },
-    { name: 'Waste', value: emissions.waste },
+    { name: 'Transport', value: emissions!.transport },
+    { name: 'Energy', value: emissions!.energy },
+    { name: 'Food', value: emissions!.food },
+    { name: 'Waste', value: emissions!.waste },
   ];
 
   return (

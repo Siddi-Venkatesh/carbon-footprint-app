@@ -17,11 +17,11 @@ export const Home: React.FC = () => {
     }}>
       {/* Hero Section */}
       <section style={{ textAlign: 'center' }}>
-        <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
-          Calculate Your Carbon Footprint
+        <h1 className="hero-title" style={{ fontSize: '4rem', marginBottom: '1rem', background: 'linear-gradient(to right, var(--accent-primary), var(--accent-secondary))', WebkitBackgroundClip: 'text', color: 'transparent' }}>
+          EcoAssist
         </h1>
-        <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto 1.5rem' }}>
-          Discover your environmental impact and get actionable, personalized recommendations to help save the planet.
+        <p className="hero-subtitle" style={{ fontSize: '1.5rem', color: 'var(--text-secondary)', marginBottom: '2rem' }}>
+          A Smart Carbon Footprint Awareness Platform that <b>tracks your individual environmental impact</b> and offers <b>actionable insights for reducing your daily footprints</b>.
         </p>
         <Button onClick={() => navigate('/calculator')} style={{ fontSize: '1.2rem', padding: '0.8rem 2rem' }}>
           Start Now

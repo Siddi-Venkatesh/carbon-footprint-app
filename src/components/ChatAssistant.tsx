@@ -62,7 +62,7 @@ export const ChatAssistant: React.FC = () => {
             <button onClick={() => setIsOpen(false)} aria-label="Close chat" style={{ color: 'var(--text-secondary)', fontSize: '1.5rem', background: 'transparent', border: 'none', cursor: 'pointer' }}>&times;</button>
           </div>
           
-          <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1rem', paddingRight: '0.5rem' }}>
+          <div aria-live="polite" aria-atomic="false" style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1rem', paddingRight: '0.5rem' }}>
             {messages.map((msg, idx) => (
               <div key={idx} style={{ 
                 alignSelf: msg.role === 'user' ? 'flex-end' : 'flex-start',
@@ -79,7 +79,7 @@ export const ChatAssistant: React.FC = () => {
               </div>
             ))}
             {isLoading && (
-              <div style={{ alignSelf: 'flex-start', backgroundColor: 'var(--bg-tertiary)', padding: '0.8rem', borderRadius: 'var(--radius-lg)', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+              <div role="status" aria-label="Assistant is typing" style={{ alignSelf: 'flex-start', backgroundColor: 'var(--bg-tertiary)', padding: '0.8rem', borderRadius: 'var(--radius-lg)', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
                 Thinking...
               </div>
             )}

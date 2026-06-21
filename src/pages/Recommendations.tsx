@@ -11,6 +11,12 @@ type RecommendationsProps = {
 export const Recommendations: React.FC<RecommendationsProps> = ({ data }) => {
   const navigate = useNavigate();
 
+  const recommendations = useMemo(() => {
+    if (!data) return [];
+    const emissions = calculateEmissions(data);
+    return generateRecommendations(data, emissions);
+  }, [data]);
+
   if (!data || data.diet === '') {
     return (
       <div style={{ textAlign: 'center', marginTop: '4rem' }}>
@@ -20,11 +26,6 @@ export const Recommendations: React.FC<RecommendationsProps> = ({ data }) => {
       </div>
     );
   }
-
-  const recommendations = useMemo(() => {
-    const emissions = calculateEmissions(data);
-    return generateRecommendations(data, emissions);
-  }, [data]);
 
   return (
     <div className="animate-fade-in" style={{ maxWidth: '900px', margin: '0 auto' }}>
